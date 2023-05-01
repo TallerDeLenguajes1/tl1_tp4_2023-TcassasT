@@ -9,6 +9,10 @@ typedef struct Tarea {
   int Duracion;
 } Tarea;
 
+// Funciones
+void cargaTareas(Tarea ** matrizDeTareas, int cantidadDeTareas);
+void mostrarTareas(Tarea ** matrizDeTareas, int cantidadDeTareas);
+
 int main() {
   // Seed rand()
   srand(time(NULL));
@@ -19,8 +23,19 @@ int main() {
 
   Tarea ** matrizDeTareas = (Tarea **) malloc(cantidadDeTareas * sizeof(Tarea **));
 
+  cargaTareas(matrizDeTareas, cantidadDeTareas);
+  mostrarTareas(matrizDeTareas, cantidadDeTareas);
+
+  // Tarea ** tareasRealizadas = (Tarea **) malloc(cantidadDeTareas * sizeof(Tarea **));
+  // Tarea ** tareasNoRealizadas = (Tarea **) malloc(cantidadDeTareas * sizeof(Tarea **));
+
+  return 0;
+}
+
+void cargaTareas(Tarea ** matrizDeTareas, int cantidadDeTareas) {
   // Inicializa arrays en NULL
   int i;
+
   for(i = 0; i < cantidadDeTareas; i++) {
     matrizDeTareas[i] = NULL;
   }
@@ -44,26 +59,21 @@ int main() {
       printf("Ingrese la duracion de la tarea N° %d:", i);
       scanf("%d%*c", &matrizDeTareas[i]->Duracion);
 
-      if(matrizDeTareas[i]->Duracion <= 10 || matrizDeTareas[i]->Duracion >= 100) {
+      if(matrizDeTareas[i]->Duracion < 10 || matrizDeTareas[i]->Duracion > 100) {
         printf("x La duracion de una tarea debe ser de entre 10 y 100, vuelva a intentarlo. ");
       }
-    } while (matrizDeTareas[i]->Duracion <= 10 || matrizDeTareas[i]->Duracion >= 100);
+    } while (matrizDeTareas[i]->Duracion < 10 || matrizDeTareas[i]->Duracion > 100);
 
     printf("\n");
   }
+}
 
-  Tarea ** tareasRealizadas = (Tarea **) malloc(cantidadDeTareas * sizeof(Tarea **));
-  Tarea ** tareasNoRealizadas = (Tarea **) malloc(cantidadDeTareas * sizeof(Tarea **));
-
-  printf("\n");
+void mostrarTareas(Tarea ** matrizDeTareas, int cantidadDeTareas) {
+  int i;
 
   for(i = 0; i < cantidadDeTareas; i++) {
     printf("-Tarea N° %d\n", matrizDeTareas[i]->TareaID);
     printf("\tDescripcion: %s\n", matrizDeTareas[i]->Descripcion);
     printf("\tDuracion: %d\n\n", matrizDeTareas[i]->Duracion);
   }
-
-  return 0;
 }
-
-
